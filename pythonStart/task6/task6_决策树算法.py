@@ -17,14 +17,12 @@ from sklearn.linear_model import LinearRegression
 
 # 13.3 分类问题决策树算法示例
 # 13.3.1 变量设置及数据处理
-data = pd.read_csv('数据13.1.csv')
+data = pd.read_csv('数据5.1.csv')
 print(data.info())  # 显示数据集的信息
 print(data.isnull().values.any())  # 检查数据集中是否有缺失值
-print(data.credit.value_counts())  # 显示分类特征'credit'的值计数
-print(data.credit.value_counts(normalize=True))  # 显示分类特征'credit'的相对频率
 
 # 将样本示例全集分割为训练样本和测试样本
-X = data.iloc[:, 1:]  # 设置特征变量
+X = data.iloc[:, [1,5,6,7,8]]  # 设置特征变量
 y = data.iloc[:, 0]  # 设置响应变量
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, stratify=y, random_state=10)
 
@@ -136,7 +134,7 @@ plt.title('决策树分类树算法ROC曲线')  # 将标题设置为'决策树�
 plt.show()  # 显示ROC曲线
 
 # 13.3.10 运用两个特征变量绘制决策树算法决策边界图
-X2 = X.iloc[:, [2, 5]]  # 仅选取workyears、debtratio作为特征变量
+X2 = X.iloc[:, [0, 1]]  # 仅选取V1、V2作为特征变量
 model = DecisionTreeClassifier(random_state=100)
 path = model.cost_complexity_pruning_path(X2, y)
 param_grid = {'ccp_alpha': path.ccp_alphas}
@@ -145,18 +143,18 @@ model = GridSearchCV(DecisionTreeClassifier(random_state=100), param_grid, cv=kf
 model.fit(X2, y)  # 使用fit方法进行拟合
 print("模型预测准确率：", model.score(X2, y))  # 计算模型预测准确率
 plot_decision_regions(np.array(X2), np.array(y), model)
-plt.xlabel('debtratio')  # 将x轴设置为'debtratio'
-plt.ylabel('workyears')  # 将y轴设置为'workyears'
+plt.xlabel('征信违约记录')  # 将x轴设置为'征信违约记录'
+plt.ylabel('资产负债率')  # 将y轴设置为'资产负债率'
 plt.title('决策树算法决策边界')  # 将标题设置为'决策树算法决策边界'
 plt.show()  # 显示决策边界图
 
 # 13.4 回归问题决策树算法示例
 # 13.4.1 变量设置及数据处理
-data = pd.read_csv('数据13.2.csv')
+data = pd.read_csv('数据4.3.csv')
 print(data.info())  # 显示数据集的信息
 print(data.isnull().values.any())  # 检查数据集中是否有缺失值
-X = data.iloc[:, 1:]  # 设置特征变量
-y = data.iloc[:, 0]  # 设置响应变量
+X = data.iloc[:, 2:]  # 设置特征变量
+y = data.iloc[:, 1]  # 设置响应变量
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=10)
 
 # 13.4.2 未考虑成本-复杂度剪枝的决策树回归算法模型
