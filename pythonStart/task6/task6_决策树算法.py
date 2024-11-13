@@ -218,7 +218,7 @@ plt.show()  # 显示图形
 # 13.4.7 通过10折交叉验证法寻求最优alpha值并开展特征变量重要性水平分析
 param_grid = {'ccp_alpha': path.ccp_alphas}
 kfold = KFold(n_splits=10, shuffle=True, random_state=10)
-model = GridSearchCV(DecisionTreeRegressor(random_state=10), param_grid, cv=kfold)
+model = GridSearchCV(DecisionTreeRegressor(random_state=10), param_grid, cv=kfold,n_jobs=-1)
 model.fit(X_train, y_train)
 print("最优alpha值：", model.best_params_)  # 输出最优alpha值
 model = model.best_estimator_
