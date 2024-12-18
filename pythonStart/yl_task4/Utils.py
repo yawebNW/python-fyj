@@ -26,14 +26,14 @@ def generateEpisode(P, r, actPolicy, epiLen):
     s0 = np.random.randint(25)  # 随机选择初始状态
     a0 = np.random.choice(5, p=actPolicy[0])  # 根据策略选择初始动作
     r0 = r[s0][a0]  # 获取初始奖励
-    episode.append([s0, a0, r0])  # 添加到episode
+    episode.append([s0, a0, r0, P[s0][a0]])  # 添加到episode
     for i in range(epiLen):  # 对于episode中的每一步
         curState = episode[i][0]  # 当前状态
         curAction = episode[i][1]  # 当前动作
         nextState = P[curState][curAction]  # 下一个状态
         nextAction = np.random.choice(5, p=actPolicy[nextState])  # 根据策略选择下一个动作
         reward = r[nextState][nextAction]  # 获取奖励
-        episode.append([nextState, nextAction, reward])  # 添加到episode
+        episode.append([nextState, nextAction, reward, P[nextState][nextAction]])  # 添加到episode
     return episode
 
 

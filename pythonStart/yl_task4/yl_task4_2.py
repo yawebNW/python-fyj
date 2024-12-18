@@ -15,5 +15,5 @@ policy = np.zeros((25,5)) + 0.2
 epiLen1 = 1000
 epiLen2 = 100
 
-DQN(p, r, gamma, policy, epiLen1)
-DQN(p, r, gamma, policy, epiLen2)
+DQN(p, r, gamma, policy, epiLen1, 500, 100)
+DQN(p, r, gamma, policy, epiLen2,500, 100)
